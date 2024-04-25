@@ -1,0 +1,9 @@
+{
+  "settings":{
+    "background_color" : "",
+    "button_color" : "",
+    "window_width" : "400",
+    "window_height" : "600",
+    "icon" : "img/icon.ico"
+  }
+}
