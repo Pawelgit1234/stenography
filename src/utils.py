@@ -1,7 +1,11 @@
 import json
 
-def load_settings(path: str) -> dict:
-	with open(path, "r") as file:
-		text = file.read()
+def load_json(path: str) -> dict:
+	try:
+		with open(path, "r") as file:
+			text = file.read()
+	except FileNotFoundError:
+		print(f"{path} not found.")
+		return {}
 
 	return json.loads(text)
