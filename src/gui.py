@@ -1,5 +1,5 @@
 import tkinter as tk
-
+from tkinter import filedialog
 
 class App:
 	def __init__(self, root: tk.Tk, menu: dict):
@@ -48,6 +48,18 @@ class App:
 		l.config(font=("TkDefaultFont", 20))
 		l.place(x=30, y=50)
 
+		self.file_path = ''
+
+		b = tk.Button(root, text="Choose File", command=self.open_file_dialog)
+		b.place(x=33, y=90)
+
+		options = ["Audio", "Video", "Image"]
+		self.selected_option = tk.StringVar(root)
+		self.selected_option.set(options[0])
+
+		option_menu = tk.OptionMenu(root, self.selected_option, *options)
+		option_menu.place(x=31, y=120)
+
 		l = tk.Label(self.root, text="Decode")
 		l.config(font=("TkDefaultFont", 20))
 		l.place(x=30, y=300)
@@ -55,5 +67,10 @@ class App:
 	def change_menu(self, new_menu: str) -> None:
 		pass
 
-	def run(self):
+	def open_file_dialog(self) -> None:
+		file_path = tk.filedialog.askopenfilename()
+		if file_path:
+			self.file_path = file_path
+
+	def run(self) -> None:
 		self.root.mainloop()
