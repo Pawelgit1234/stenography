@@ -7,7 +7,7 @@ class App:
 
 		self.root = root
 		self.root.title("Stenography")
-		self.root.geometry("400x600")
+		self.root.geometry("450x600")
 		self.root.iconbitmap(self.menu['window']['icon'])
 
 		self.menu_bar = tk.Menu(root)
@@ -54,15 +54,61 @@ class App:
 		b.place(x=33, y=90)
 
 		options = ["Audio", "Video", "Image"]
-		self.selected_option = tk.StringVar(root)
-		self.selected_option.set(options[0])
 
-		option_menu = tk.OptionMenu(root, self.selected_option, *options)
-		option_menu.place(x=31, y=120)
+		self.encode_selected_option = tk.StringVar(root)
+		self.encode_selected_option.set(options[0])
+
+		encode_option_menu = tk.OptionMenu(root, self.encode_selected_option, *options)
+		encode_option_menu.place(x=31, y=120)
+
+		l = tk.Label(self.root, text="+")
+		l.config(font=("TkDefaultFont", 20))
+		l.place(x=120, y=100)
+
+		self.text_encode = tk.Text(root, width=15, height=4)
+		self.text_encode.place(x=150, y=90)
+
+		l = tk.Label(self.root, text="+")
+		l.config(font=("TkDefaultFont", 20))
+		l.place(x=280, y=100)
+
+		self.encode_key_entry = tk.Entry()
+		self.encode_key_entry.place(x=305, y=110)
+
+		self.encode_button = tk.Button(text="Do", command=self.encode_text)
+		self.encode_button.place(x=200, y=170)
 
 		l = tk.Label(self.root, text="Decode")
 		l.config(font=("TkDefaultFont", 20))
-		l.place(x=30, y=300)
+		l.place(x=30, y=240)
+
+		b = tk.Button(root, text="Choose File", command=self.open_file_dialog)
+		b.place(x=33, y=280)
+
+		self.decode_selected_option = tk.StringVar(root)
+		self.decode_selected_option.set(options[0])
+
+		encode_option_menu = tk.OptionMenu(root, self.decode_selected_option, *options)
+		encode_option_menu.place(x=31, y=310)
+
+		l = tk.Label(self.root, text="+")
+		l.config(font=("TkDefaultFont", 20))
+		l.place(x=200, y=290)
+
+		self.decode_key_entry = tk.Entry()
+		self.decode_key_entry.place(x=305, y=300)
+
+		self.text_decode = tk.Text(root, width=15, height=4)
+		self.text_decode.place(x=150, y=350)
+
+		self.decode_button = tk.Button(text="Do", command=self.decode_text)
+		self.decode_button.place(x=200, y=430)
+
+	def encode_text(self):
+		pass
+
+	def decode_text(self):
+		pass
 
 	def change_menu(self, new_menu: str) -> None:
 		pass
