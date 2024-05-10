@@ -1,10 +1,8 @@
 {
-  "window" : {
-    "background_color" : "",
-    "button_color" : "",
-    "icon" : "img/icon.ico"
-  },
-  "algorithms" : {
-
-  }
+    "settings": {
+        "background_theme": "dark",
+        "icon": "img/icon.ico",
+        "algorithm": "without_key",
+        "language": "Us_English"
+    }
 }
