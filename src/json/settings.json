@@ -1,8 +1,8 @@
 {
     "settings": {
-        "background_theme": "dark",
+        "theme": "white",
         "icon": "img/icon.ico",
         "algorithm": "without_key",
-        "language": "Us_English"
+        "language": "Русский"
     }
 }
