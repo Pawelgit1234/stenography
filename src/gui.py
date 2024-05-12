@@ -5,8 +5,10 @@ import re
 from utils import dump_json, load_json
 
 class App:
-	def __init__(self, root: tk.Tk, menu: dict):
+	def __init__(self, root: tk.Tk, menu: dict, language: dict):
 		self.menu = menu
+		self.language = language
+		self.last_language = self.menu["settings"]["language"]
 
 		self.root = root
 		self.root.title("Stenography")
@@ -16,19 +18,19 @@ class App:
 		self.menu_bar = tk.Menu(root)
 
 		self.file_menu = tk.Menu(self.menu_bar, tearoff=0)
-		self.file_menu.add_command(label="Exit", command=root.quit)
-		self.menu_bar.add_cascade(label="File", menu=self.file_menu)
+		self.file_menu.add_command(label=self.language[self.last_language]["exit"], command=root.quit)
+		self.menu_bar.add_cascade(label=self.language[self.last_language]["file"], menu=self.file_menu)
 
 		self.customization_menu = tk.Menu(self.menu_bar, tearoff=0)
-		self.customization_menu.add_command(label="Dark Theme", command=lambda: self.change_menu("settings-theme(dark)"))
-		self.customization_menu.add_command(label="White Theme", command=lambda: self.change_menu("settings-theme(white)"))
-		self.menu_bar.add_cascade(label="Customization", menu=self.customization_menu)
+		self.customization_menu.add_command(label=self.language[self.last_language]["dark_theme"], command=lambda: self.change_menu("settings-theme(dark)"))
+		self.customization_menu.add_command(label=self.language[self.last_language]["white_theme"], command=lambda: self.change_menu("settings-theme(white)"))
+		self.menu_bar.add_cascade(label=self.language[self.last_language]["customization"], menu=self.customization_menu)
 
 		self.algorithm_menu = tk.Menu(self.menu_bar, tearoff=0)
-		self.algorithm_menu.add_command(label="Without key", command=lambda: self.change_menu("settings-algorithm(without_key)"))
-		self.algorithm_menu.add_command(label="With key", command=lambda: self.change_menu("settings-algorithm(with_key)"))
+		self.algorithm_menu.add_command(label=self.language[self.last_language]["without_key"], command=lambda: self.change_menu("settings-algorithm(without_key)"))
+		self.algorithm_menu.add_command(label=self.language[self.last_language]["with_key"], command=lambda: self.change_menu("settings-algorithm(with_key)"))
 
-		self.menu_bar.add_cascade(label="Algorithm", menu=self.algorithm_menu)
+		self.menu_bar.add_cascade(label=self.language[self.last_language]["algorithm"], menu=self.algorithm_menu)
 
 		self.language_menu = tk.Menu(self.menu_bar, tearoff=0)
 
@@ -37,7 +39,7 @@ class App:
 			if k == "choosen":
 				continue
 			self.language_menu.add_command(label=k, command=lambda lang=k: self.change_menu(f"settings-language({lang})"))
-		self.menu_bar.add_cascade(label="Language", menu=self.language_menu)
+		self.menu_bar.add_cascade(label=self.language[self.last_language]["language"], menu=self.language_menu)
 
 		self.root.config(menu=self.menu_bar)
 
@@ -48,7 +50,7 @@ class App:
 		self.file_path = ''
 
 		self.encode_b = tk.Button(root, text="Choose File", command=self.open_file_dialog)
-		self.encode_b.place(x=33, y=105)
+		self.encode_b.place(x=20, y=105)
 
 		self.encode_plus_1 = tk.Label(self.root, text="+")
 		self.encode_plus_1.config(font=("TkDefaultFont", 20))
@@ -100,6 +102,7 @@ class App:
 		var = re.findall(r'\((.*?)\)', menu[-1])[0]
 		menu[-1] = menu[-1][:menu[-1].index('(')]
 
+		self.last_language = self.menu["settings"]["language"]
 		self.menu[menu[0]][menu[1]] = var
 		dump_json("json/settings.json", self.menu)
 		self.customize()
@@ -136,13 +139,31 @@ class App:
 			self.decode_plus.config(bg="#dedede", fg="#333333")
 			self.decode_text_field.config(bg="#b5b3b3", fg="#333333")
 			self.decode_key_entry.config(bg="#b5b3b3", fg="#333333")
-
+		# Algorithm
 		if self.menu["settings"]["algorithm"] == "with_key":
 			self.encode_key_entry.config(state="normal")
 			self.decode_key_entry.config(state="normal")
 		else:
 			self.encode_key_entry.config(state="disabled")
 			self.decode_key_entry.config(state="disabled")
+
+		# Language
+		lan = self.menu["settings"]["language"]
+		self.encode_l.config(text=self.language[lan]["encode"])
+		self.encode_b.config(text=self.language[lan]["choose_file"])
+		self.encode_button.config(text=self.language[lan]["do"])
+		self.decode_l.config(text=self.language[lan]["encode"])
+		self.decode_b.config(text=self.language[lan]["choose_file"])
+		self.decode_button.config(text=self.language[lan]["do"])
+		self.menu_bar.entryconfig(self.language[self.last_language]["file"], label=self.language[lan]["file"])
+		self.file_menu.entryconfig(self.language[self.last_language]["exit"], label=self.language[lan]["exit"])
+		self.menu_bar.entryconfig(self.language[self.last_language]["customization"], label=self.language[lan]["customization"])
+		self.customization_menu.entryconfig(self.language[self.last_language]["dark_theme"], label=self.language[lan]["dark_theme"])
+		self.customization_menu.entryconfig(self.language[self.last_language]["white_theme"], label=self.language[lan]["white_theme"])
+		self.menu_bar.entryconfig(self.language[self.last_language]["algorithm"], label=self.language[lan]["algorithm"])
+		self.algorithm_menu.entryconfig(self.language[self.last_language]["without_key"], label=self.language[lan]["without_key"])
+		self.algorithm_menu.entryconfig(self.language[self.last_language]["with_key"], label=self.language[lan]["with_key"])
+		self.menu_bar.entryconfig(self.language[self.last_language]["language"], label=self.language[lan]["language"])
 
 	def open_file_dialog(self) -> None:
 		file_path = tk.filedialog.askopenfilename()

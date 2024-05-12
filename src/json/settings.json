@@ -2,7 +2,7 @@
     "settings": {
         "theme": "white",
         "icon": "img/icon.ico",
-        "algorithm": "without_key",
-        "language": "Русский"
+        "algorithm": "with_key",
+        "language": "Us_English"
     }
 }

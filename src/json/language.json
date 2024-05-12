@@ -1,11 +1,47 @@
 {
   "Us_English" : {
-
+    "choose_file": "Choose File",
+    "do": "Do",
+    "encode": "Encode",
+    "decode": "Decode",
+    "file": "File",
+    "exit": "Exit",
+    "customization": "Customization",
+    "dark_theme": "Dark Theme",
+    "white_theme": "White Theme",
+    "algorithm": "Algorithm",
+    "with_key": "With key",
+    "without_key": "Without key",
+    "language": "Language"
   },
   "Deutsch" : {
-
+    "choose_file": "Datei aussuchen",
+    "do": "Umwandeln",
+    "encode": "Kodieren",
+    "decode": "Dekodieren",
+    "file": "Datei",
+    "exit": "Schließen",
+    "customization": "Anpassung",
+    "dark_theme": "Dunkle Theme",
+    "white_theme": "Helle Theme",
+    "algorithm": "Algorithmus",
+    "with_key": "Mit Schlüssel",
+    "without_key": "Ohne Schlüssel",
+    "language": "Sprache"
   },
   "Русский" : {
-
+    "choose_file": "Выбрать файл",
+    "do": "Перевести",
+    "encode": "Кодировать",
+    "decode": "Декодировать",
+    "file": "Файл",
+    "exit": "Закрыть",
+    "customization": "Кастомизация",
+    "dark_theme": "Тёмная тема",
+    "white_theme": "Светлая тема",
+    "algorithm": "Алгоритм",
+    "with_key": "С ключом",
+    "without_key": "Без Ключа",
+    "language": "Язык"
   }
 }
