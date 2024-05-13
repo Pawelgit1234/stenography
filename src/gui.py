@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import filedialog
+from tkinter import messagebox
 import re
 
 from utils import dump_json, load_json
+from algorithms import *
 
 class App:
 	def __init__(self, root: tk.Tk, menu: dict, language: dict):
@@ -92,10 +94,26 @@ class App:
 		self.customize()
 
 	def encode_text(self):
-		pass
+		try:
+			new_path = self.file_path.split('.')[-2] + "_encoded." + self.file_path.split('.')[-1]
+
+			if self.menu["settings"]["algorithm"] == "with_key":
+				encode_with_key(self.file_path, new_path, self.encode_text_field.get("1.0", tk.END), self.encode_key_entry.get())
+			else:
+				encode_without_key(self.file_path, new_path, self.encode_text_field.get("1.0", tk.END))
+		except Exception as e:
+			messagebox.showerror("Error", e)
 
 	def decode_text(self):
-		pass
+		try:
+			if self.menu["settings"]["algorithm"] == "with_key":
+				msg = decode_with_key(self.file_path, self.decode_key_entry.get())
+			else:
+				msg = decode_without_key(self.file_path)
+
+			self.decode_text_field.insert(tk.END, msg)
+		except Exception as e:
+			messagebox.showerror("Error", e)
 
 	def change_menu(self, new_menu: str) -> None:
 		menu = new_menu.split('-')
