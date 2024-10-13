@@ -123,7 +123,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-schoolforum/.env
 .venv
 env/
 venv/
